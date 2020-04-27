@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\Category;
+use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Resources\CategoryResource;
+use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller
 {
@@ -15,18 +18,10 @@ class CategoryController extends Controller
     public function index()
     {
         //
+        return CategoryResource::collection(Category::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -36,6 +31,13 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         //
+        $cate=new Category();
+        $cate->name=$request->name;
+        $cate->slug=Str::slug($request->name);
+        $cate->save();
+        return response("cartegory created succefully",Response::HTTP_CREATED);
+
+
     }
 
     /**
@@ -47,19 +49,10 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         //
+        return new CategoryResource($category);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Model\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category $category)
-    {
-        //
-    }
-
+    
     /**
      * Update the specified resource in storage.
      *
@@ -70,6 +63,9 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         //
+        $category->update(["name"=>$request->name,"slug"=>Str::slug($request->name)]);
+        return response("category updated success",Response::HTTP_ACCEPTED);
+
     }
 
     /**
@@ -81,5 +77,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         //
+        $question->delete();
+        return response(null,Response::HTTP_NO_CONTENT);
     }
 }
