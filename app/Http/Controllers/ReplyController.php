@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use jwt;
 use App\Models\Reply;
 use App\Models\Question;
 use Illuminate\Http\Request;
@@ -10,6 +11,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ReplyController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('jwt', ['except' => ['index','show']]);
+    }
     /**
      * Display a listing of the resource.
      *

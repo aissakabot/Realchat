@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use jwt;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use App\Http\Resources\QuestionResource;
@@ -14,6 +15,10 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('jwt', ['except' => ['index','show']]);
+    }
     public function index()
     {
         //
