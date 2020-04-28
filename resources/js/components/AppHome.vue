@@ -1,7 +1,8 @@
 <template>
   <div>
       <tool-bar></tool-bar>
-      <footer></footer>
+      <router-view></router-view>
+      <Footer></Footer>
   </div>
 </template>
 
