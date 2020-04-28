@@ -24,6 +24,9 @@
 </template>
 
 <script>
+ import User from '../../helper/User'
+//  import Token from '../../helper/Token'
+//  import AppStorage from '../../helper/Appstorage'
 export default {
 
 data(){
@@ -36,10 +39,11 @@ data(){
 },
 methods:{
     login(){
-        axios.post('api/auth/login',this.form).then(
-            res=>console.log(res.data)
-        ).then(err=>console.log(err.response.data))
-    }
+    User.login(this.form)
+  //console.log(User.id())
+    },
+
+   
 }
 }
 </script>
