@@ -6,16 +6,13 @@
       v-model="form.email"
       label="email"
       type="text"
-      required
-     
+      required     
     ></v-text-field>
     <v-text-field
       v-model="form.password"
-     
       label="password"
       type="password"
-      required
-      
+      required 
     ></v-text-field>
     <v-btn type="submit" class="mr-4">login</v-btn>
   
@@ -37,9 +34,15 @@ data(){
         },
     }
 },
+created(){
+  if(User.logedIn()){
+      this.$router.push({name:"forum"})
+  }  
+},
 methods:{
     login(){
     User.login(this.form)
+    this.$router.push({name:"forum"})
   //console.log(User.id())
     },
 

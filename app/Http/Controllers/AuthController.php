@@ -4,6 +4,7 @@ use jwt;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SignupRequest;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -35,6 +36,11 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
     function signup(Request $request){
+        $request->validate([
+            'name' =>'required',
+            'email' =>'required|email',
+            'password' =>'required|confirmed'
+        ]);
         User::create($request->all());
        
             $this->login($request);

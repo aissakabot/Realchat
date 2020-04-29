@@ -9,7 +9,7 @@ class User{
                  Token.payload(res.data.access_token)
                  this.responseAfterLogin(res)
                 }
-            ).catch(err=>console.log(err.response.data))
+            ).catch(err=>console.log(err.response.errors))
     }
 
     responseAfterLogin(res){
@@ -20,6 +20,8 @@ class User{
         if(Token.isValid(access_token)){
            
             AppStorage.store(username,access_token)
+            window.location='/forum'
+            
         } else{
             console.log("error token")
         }
@@ -35,9 +37,11 @@ class User{
     }
     logedIn(){
         return this.hasToken()
+       
     }
     logout(){
-        AppStorage.clear()
+        AppStorage.clear() 
+        window.location='/forum'
     }
     name(){
         if(this.logedIn()){
