@@ -4,7 +4,7 @@
       <v-toolbar-title>ChatMe</v-toolbar-title>
       <v-spacer></v-spacer>
       <div class="hidden-sm-and-down">
-         <router-link  v-for="(item,index) in items" :key="index"
+         <router-link  v-for="item in items" :key="item.title"
          :to='item.to'
          v-if="item.show"><v-btn flat>{{item.title}}</v-btn> </router-link>
         
@@ -14,16 +14,19 @@
 </template>
 
 <script>
+import User from '../helper/User'
+import { EventBus } from '../helper/EventBus';
 export default {
   data(){
     return {
       items:[
         {title:'forum',to:'forum',show:true},
-        {title:'login',to:'forum',show:!User.logedIn()},
+        {title:'login',to:'login',show:!User.logedIn()},
         {title:'signup',to:'signup',show:!User.logedIn()},
-        {title:'logout',to:'logout',show:!User.logedIn()},
-        {title:'question',to:'question',show:User.logedIn()},
+        {title:'logout',to:'logout',show:User.logedIn()},
+        {title:'Ask question',to:'create',show:true},
         {title:'category',to:'category',show:User.logedIn()},
+        
       ]
     }
   },

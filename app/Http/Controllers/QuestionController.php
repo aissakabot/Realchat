@@ -36,8 +36,10 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         //
-        Question::create($request->all());
-        return response('question created succfully',Response::HTTP_CREATED);
+      //  Question::create($request->all());
+      // $request->slug=Str::slug($request->title); you can use boot mothod in model question
+      $question = auth()->user()->question()->create($request->all());
+        return response(new QuestionResource($question),Response::HTTP_CREATED);
     }
 
     /**
